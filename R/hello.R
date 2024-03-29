@@ -8,3 +8,5 @@ library(usethis) # in devtools?
 # Testfunction
 # devtools::load_all()
 # devtools::check()
+# Update Documentation
+# devtools::document()
