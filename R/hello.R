@@ -2,9 +2,9 @@
 library(devtools)
 library(usethis) # in devtools?
 
-usethis::use_r("weigths.r")
+# initialize a new .r file
+# usethis::use_r("weigths.r")
 
-
-square_val = function(x){
-  x^2
-}
+# Testfunction
+# devtools::load_all()
+# devtools::check()
