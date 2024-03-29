@@ -4,9 +4,7 @@ Title: Bivariate Local Polynomial Estimator
 Version: 0.1.0
 Author: Max Berger
 Maintainer: Max Berger <mberger@mathematik.uni-marburg.de>
-Description: Bivariate Local Polynomial estimator for first and second order
-for bivariate functions and partial derivatives up to order two. 
-Extra case for estimating the covariance kernel for noisy functional data.
+Description: Bivariate Local Polynomial estimator for first and second order for bivariate functions and partial derivatives up to order two. Extra case for estimating the covariance kernel for noisy functional data.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
