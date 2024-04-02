@@ -1,6 +1,6 @@
 # does this needs to be in the package files?
-library(devtools)
-library(usethis) # in devtools?
+# library(devtools)
+# library(usethis) # in devtools?
 
 # initialize a new .r file
 # usethis::use_r("weigths.r")
