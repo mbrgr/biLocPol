@@ -25,13 +25,36 @@ test_that("slice matrix works", {
 
 #### invert3x3 ####
 test_that("inver3x3 inverts correctly", {
-  M = matrix(c(2,6,34,
-               6,3,-23,
-               7,-2, 0), 3, 3)
-  expect_equal(M |> invert3x3() |> round(15), solve(M) |> round(15))
+  M = matrix(c(2,  6,  34,
+               6,  3, -23,
+               7, -2,   0), 3, 3)
+  expect_equal(invert3x3(M), solve(M))
   M = matrix(rnorm(9), 3)
-  expect_equal(M |> invert3x3() |> round(15), solve(M) |> round(15))
+  expect_equal(invert3x3(M), solve(M))
 })
 
 #### observation_transformation #####
+test_that("correct dimension", {
+  n = 20
+  p = 40
+  Y = FDA_observation(n, (1:p - 0.5)/p)
+  expect_length(Y |> observation_transformation(grid.type = "less"), p*(p-1)/2)
+  expect_length(Y |> observation_transformation(grid.type = "without diagonal"), p*(p-1))
+  expect_length(Y |> observation_transformation(grid.type = "full"), p^2)
+})
 
+test_that("correct values", {
+  M = matrix(1:12, 3, 4)
+  expect_equal(M |> observation_transformation(), rep(1, 6))
+})
+
+#### observation_grid ####
+test_that("correct dimension", {
+  p = 20
+  expect_equal( observation_grid(p, comp = "less") |> dim(), c(p*(p-1)/2, 2))
+  expect_equal( observation_grid(p, comp = "lesseq") |> dim(), c(p*(p+1)/2, 2))
+  expect_equal( observation_grid(p, comp = "without diagonal") |> dim(), c(p*(p-1), 2))
+  expect_equal( observation_grid(p, comp = "gtr") |> dim(), c(p*(p-1)/2, 2))
+  expect_equal( observation_grid(p, comp = "gtreq") |> dim(), c(p*(p+1)/2, 2))
+  expect_equal( observation_grid(p, comp = "full") |> dim(), c(p^2, 2))
+})
