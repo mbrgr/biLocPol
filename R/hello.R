@@ -10,3 +10,5 @@ library(usethis) # in devtools?
 # devtools::check()
 # Update Documentation
 # devtools::document()
+# install package locally
+# devtools::install()
