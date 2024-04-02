@@ -122,7 +122,7 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
   if(del == 0){
     weights = w
   }else{
-    if(grid.type == "less"){k = 2}else{k = 1}
+    if (grid.type == "less") {k = 2} else {k = 1}
     weights = slice_matrix(w, p*(p-1)/k, switch(del, 3, 6))
   }
   rm(w)

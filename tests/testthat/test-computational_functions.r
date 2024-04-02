@@ -33,6 +33,10 @@ test_that("inver3x3 inverts correctly", {
   expect_equal(invert3x3(M), solve(M))
 })
 
+test_that("expect warning", {
+  expect_warning(matrix(1, 3, 3) |> invert3x3())
+})
+
 #### observation_transformation #####
 test_that("correct dimension", {
   n = 20
