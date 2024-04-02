@@ -133,13 +133,13 @@ observation_transformation = function(Y, grid.type = "less"){
   Z = Y.2 - as.vector(tcrossprod(Y.means))      # vector gets subtracted of all columns. Dim (p^2 x n)
   Z.mean = rowSums(Z)/(n-1)                     # Dim p^2. Reduction that is only possible in the case of synchronous observations.
   if (grid.type == "less") {
-    M2 = as.vector(upper.tri(matrix(0, p, p)))    # corresponds to entries of: observation.grid(p, "less)
+    M2 = as.vector(upper.tri(matrix(0, p, p)))  # corresponds to entries of: observation.grid(p, "less)
   } else if (grid.type == "without diagonal") {
     M2 = as.vector(!diag(T, p, p))
   } else if (grid.type == "full") {
     M2 = T
   } else {stop("grid type not implemented")}
-  return(Z.mean[M2])                                    # in
+  return(Z.mean[M2])
 }
 
 #' Creates two dimensional observation grids
