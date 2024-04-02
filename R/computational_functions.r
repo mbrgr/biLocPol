@@ -49,7 +49,7 @@ invert3x3 = function(M, eps = 10^(-6)) {
   det_M = M[1, 1] * N_11 - M[2, 1] * N_12 + M[3, 1] * N_13
 
   if(abs(det_M) < eps){
-    print("unstable matrix inversion")
+    warning("unstable matrix inversion")
   }
   minus_det_M = -det_M
   det_M_inv = 1/det_M
