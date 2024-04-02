@@ -4,7 +4,7 @@
 \alias{weights_point}
 \title{Calculate the weights of bivariate local polynomial estimator at a single point}
 \usage{
-weights_point(x, x.design.grid, h, K = epaK2d, m = 1, del = 0)
+weights_point(x, x.design.grid, h, K = epak_2d, m = 1, del = 0)
 }
 \arguments{
 \item{x}{design point as two dimensional vector at which the weights are calculated}

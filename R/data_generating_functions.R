@@ -109,3 +109,29 @@ cov.ou = function(t, sigma, theta, sigma0 = 0){
 OU = function(n, t = seq(0, 1, len = 201), mu = 0, alpha = 1, sigma = 1, x0 = 0){
   r_ou(n, t, mu, alpha, sigma, x0)$data
 }
+
+
+#' Generates values to test functions
+#'
+#' @param ... grid type
+#'
+#' @return values
+#' @export
+#'
+#' @examples
+#' generate_test_data()
+generate_test_data = function(...){
+  n = 100
+  p = 25
+  x.design = (1:p - 0.5)/p
+  Y = FDA_observation(n, x.design)
+  list(
+    n = n, p = p, x.design = x.design,
+    p.eval = 50,
+    h = 0.2,
+    m = 1,
+    del = 0,
+    x = c(0.2, 0.3),
+    Y = Y, Z = observation_transformation(Y, ...)
+  )
+}

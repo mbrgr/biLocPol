@@ -28,8 +28,8 @@ library(future.apply)
 #'
 #' @examples
 #' 0
-weights_point = function(x, x.design.grid, h, K = epaK2d, m = 1, del = 0){
- L = apply(x.design.grid, 1, function(z){tcrossprod(U(z-x, h, m = m), U(z-x, h, m = m)) * K((z-x)/h)})
+weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
+ L = apply(x.design.grid, 1, function(z){tcrossprod(U(z - x, h, m = m), U(z-x, h, m = m)) * K((z-x)/h)})
  if (m == 2) {
    B = matrix(rowSums(L), 6, 6) # This differs from local linear estimator
    B.inv = solve(B) # TODO: can this be sped up????
@@ -95,14 +95,14 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
   if(!is.null(x.design.grid) & is.vector(x.design.grid)){
     x.design.grid = observation_grid(x = x.design.grid, comp = grid.type)
   }else{
-    x.design.grid = observation_grid(p, comp = grid.type)
+    x.design.grid = observation_grid(p = p, comp = grid.type)
   }
 
   if( !(eval.type %in% c("full", "diagonal")) ){
     stop("evaluation is only possible for lower diagonal -full- oder only on the -diagonal-.")
   }
   x.eval.grid = switch(eval.type,
-                       full = observation_grid(p.eval, "lesseq"),
+                       full = observation_grid(p = p.eval, comp = "lesseq"),
                        diagonal = matrix( (1:p.eval - 0.5)/p.eval, p.eval, 2)   )
 
   if(del > m){m = 2; del = 2}
