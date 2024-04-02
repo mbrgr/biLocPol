@@ -1,3 +1,5 @@
+library(testthat)
+
 #### weights_point ####
 
 test_that("correct dimension", {
@@ -27,7 +29,7 @@ test_that("correct dimension", {
 
 # TODO:
 test_that("warning for small bandwidth", {
-  p = 8
+  p = 5
   d_grid = observation_grid(p, comp = "less")
   expect_warning(weights_point(x = c(0.2, 0.3), d_grid, h = 0.2, K = epak_2d, m = 1, del = 0))
 })
