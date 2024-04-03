@@ -1,8 +1,6 @@
-library(testthat)
-
 #### weights_point ####
 
-test_that("correct dimension", {
+testthat::test_that("correct dimension", {
   p = 20
   d_grid = observation_grid(p, comp = "less")
   expect_equal(weights_point(x = c(0.2, 0.3), d_grid, h = 0.2, K = epak_2d, m = 1, del = 0) |>
@@ -27,9 +25,18 @@ test_that("correct dimension", {
                  dim(), c(p*(p-1), 6))
 })
 
-# TODO:
-test_that("warning for small bandwidth", {
+testthat::test_that("warning for small bandwidth", {
   p = 5
   d_grid = observation_grid(p, comp = "less")
   expect_warning(weights_point(x = c(0.2, 0.3), d_grid, h = 0.2, K = epak_2d, m = 1, del = 0))
 })
+
+
+
+#### local_polynomial_weights ####
+
+p = 20
+h = 0.2
+p.eval = 25
+w = local_polynomial_weights(p, h, p.eval)
+

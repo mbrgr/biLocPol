@@ -1,9 +1,6 @@
-library(usethis)
-library(testthat)
-
 #### slice_matrix ####
 
-test_that("Dimension of slice_matrix is correct", {
+testthat::test_that("Dimension of slice_matrix is correct", {
  expect_equal(matrix(1:36, 9, 4) |>
                 slice_matrix(3, 3) |> dim(),
               c(3, 4, 3))
@@ -15,7 +12,7 @@ test_that("Dimension of slice_matrix is correct", {
                c(4, 3, 3))
 })
 
-test_that("slice matrix works", {
+testthat::test_that("slice matrix works", {
   expect_equal(matrix(1:27, 9, 3) |>
                  slice_matrix(3, 3),
                array(c(1:3, 10:12, 19:21,
@@ -24,7 +21,7 @@ test_that("slice matrix works", {
 })
 
 #### invert3x3 ####
-test_that("inver3x3 inverts correctly", {
+testthat::test_that("inver3x3 inverts correctly", {
   M = matrix(c(2,  6,  34,
                6,  3, -23,
                7, -2,   0), 3, 3)
@@ -33,12 +30,12 @@ test_that("inver3x3 inverts correctly", {
   expect_equal(invert3x3(M), solve(M))
 })
 
-test_that("expect warning", {
+testthat::test_that("expect warning", {
   expect_warning(matrix(1, 3, 3) |> invert3x3())
 })
 
 #### observation_transformation #####
-test_that("correct dimension", {
+testthat::test_that("correct dimension", {
   n = 20
   p = 40
   Y = FDA_observation(n, (1:p - 0.5)/p)
@@ -47,13 +44,13 @@ test_that("correct dimension", {
   expect_length(Y |> observation_transformation(grid.type = "full"), p^2)
 })
 
-test_that("correct values", {
+testthat::test_that("correct values", {
   M = matrix(1:12, 3, 4)
   expect_equal(M |> observation_transformation(), rep(1, 6))
 })
 
 #### observation_grid ####
-test_that("correct dimension", {
+testthat::test_that("correct dimension", {
   p = 20
   expect_equal( observation_grid(p, comp = "less") |> dim(), c(p*(p-1)/2, 2))
   expect_equal( observation_grid(p, comp = "lesseq") |> dim(), c(p*(p+1)/2, 2))
