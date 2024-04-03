@@ -23,7 +23,7 @@ weights_point(x, x.design.grid, h, K = epak_2d, m = 1, del = 0)
 returns a matrix with one to six columns where the first column
  is the estimation of the actual function, the second is the partial derivative
  in the first direction (x), the third in direction 2 (y), the fourth xx, the
- fifth xy and the sixth in direction yy
+ fifth xy and the sixth in direction yy. In case `del = 0` its an row vector and other wise a matrix.
 }
 \description{
 function that gets called from local.polynomial.weights

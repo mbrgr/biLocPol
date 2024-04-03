@@ -28,9 +28,10 @@ mu = function(x){
 #' @param eps.arg  list with further arguments that can be shall bes passed to the errors
 #' @param transformed shall the weights be transformed according to observation_transformation?
 #' @param decomposed shall the decomposition into the parts be returned?
-#' @param ...
+#' @param ... further arguments to be passed
 #'
 #' @return TODO
+#' @importFrom stats rnorm
 #' @export
 #'
 #' @examples
@@ -64,6 +65,7 @@ FDA_observation = function(n, x.design, f = mu,
 #' @param sigma TODO
 #'
 #' @return TODO
+#' @importFrom stats rnorm
 #' @export
 #'
 #' @examples
@@ -102,12 +104,13 @@ cov.ou = function(t, sigma, theta, sigma0 = 0){
 #' @param x0 TODO
 #'
 #' @return TODO
+#' @importFrom goffda r_ou
 #' @export
 #'
 #' @examples
 #' 0 # TODO
 OU = function(n, t = seq(0, 1, len = 201), mu = 0, alpha = 1, sigma = 1, x0 = 0){
-  r_ou(n, t, mu, alpha, sigma, x0)$data
+  goffda::r_ou(n, t, mu, alpha, sigma, x0)$data
 }
 
 

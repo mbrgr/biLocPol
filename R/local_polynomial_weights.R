@@ -23,7 +23,8 @@ library(future.apply)
 #' @return returns a matrix with one to six columns where the first column
 #'  is the estimation of the actual function, the second is the partial derivative
 #'  in the first direction (x), the third in direction 2 (y), the fourth xx, the
-#'  fifth xy and the sixth in direction yy
+#'  fifth xy and the sixth in direction yy. In case `del = 0` its an row vector and other wise a matrix.
+#'
 #' @export
 #'
 #' @examples
@@ -79,6 +80,9 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
 #' @param ... further arguments
 #'
 #' @return TODO: write something usefull -> can we create an object here?
+#' @importFrom future.apply future_apply
+#' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom future plan
 #' @export
 #'
 #' @examples
@@ -107,12 +111,12 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
 
   if(del > m){m = 2; del = 2}
   if(parallel){
-    cl = makeCluster(detectCores( ) - 1)
-    plan(future::cluster)
-    w = future_apply(x.eval.grid, 1, FUN = weights_point,
+    cl = parallel::makeCluster(parallel::detectCores( ) - 1)
+    future::plan(future::cluster)
+    w = future.apply::future_apply(x.eval.grid, 1, FUN = weights_point,
                      x.design.grid = x.design.grid, h = h, m = m, del = del, ...,
                      future.seed = T)
-    stopCluster(cl)
+    parallel::stopCluster(cl)
   }else{
     w = apply(x.eval.grid, 1, weights_point,
               x.design.grid = x.design.grid,

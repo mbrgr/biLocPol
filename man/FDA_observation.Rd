@@ -36,7 +36,7 @@ FDA_observation(
 
 \item{decomposed}{shall the decomposition into the parts be returned?}
 
-\item{...}{}
+\item{...}{further arguments to be passed}
 }
 \value{
 TODO
