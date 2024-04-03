@@ -2,7 +2,7 @@
 % Please edit documentation in R/local_polynomial_weights.R
 \name{local_polynomial_weights}
 \alias{local_polynomial_weights}
-\title{Title}
+\title{Calculated the weights of the linear local polynomial estimator}
 \usage{
 local_polynomial_weights(
   p,
@@ -42,8 +42,8 @@ local_polynomial_weights(
 TODO: write something usefull -> can we create an object here?
 }
 \description{
-Title
+according to paper Berger/Holzmann (2024)
 }
 \examples{
-0 # TODO:
+local_polynomial_weights(20, 0.3, 25, m = 2, del = 0)
 }

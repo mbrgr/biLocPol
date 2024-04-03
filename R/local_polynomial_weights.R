@@ -1,11 +1,3 @@
-#### Libraries ####
-
-# Parallel R-Code with Windows
-library(parallel)
-library(future.apply)
-
-
-
 #### Calculation of the weights ####
 #' @title Calculate the weights of bivariate local polynomial estimator at a single point
 #'
@@ -28,7 +20,7 @@ library(future.apply)
 #' @export
 #'
 #' @examples
-#' 0
+#' weights_point(c(0.2, 0.3), observation_grid(15, comp = "less"), 0.2, del = 1)
 weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
  L = apply(x.design.grid, 1, function(z){tcrossprod(U(z - x, h, m = m), U(z-x, h, m = m)) * K((z-x)/h)})
  if (m == 2) {
@@ -66,7 +58,8 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
 
 
 
-#' Title
+#' Calculated the weights of the linear local polynomial estimator
+#' @description according to paper Berger/Holzmann (2024)
 #'
 #' @param p amount of design (observation) points on one axis
 #' @param h bandwidth parameter
@@ -86,7 +79,7 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
 #' @export
 #'
 #' @examples
-#' 0 # TODO:
+#' local_polynomial_weights(20, 0.3, 25, m = 2, del = 0)
 local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
                                     del = 0, x.design.grid = NULL,
                                     grid.type = "less", eval.type = "full", ...){

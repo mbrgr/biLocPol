@@ -31,5 +31,5 @@ function that gets called from local.polynomial.weights
  meant to be used singularly.
 }
 \examples{
-0
+weights_point(c(0.2, 0.3), observation_grid(15, comp = "less"), 0.2, del = 1)
 }
