@@ -138,6 +138,8 @@ observation_transformation = function(Y, grid.type = "less"){
     M2 = as.vector(!diag(T, p, p))
   } else if (grid.type == "full") {
     M2 = T
+  } else if (grid.type == "diagonal"){
+    M2 = as.vector(diag(T, p, p))
   } else {stop("grid type not implemented")}
   return(Z.mean[M2])
 }
