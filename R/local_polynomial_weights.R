@@ -25,7 +25,7 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
  L = apply(x.design.grid, 1, function(z){tcrossprod(U(z - x, h, m = m), U(z-x, h, m = m)) * K((z-x)/h)})
  if (m == 2) {
    B = matrix(rowSums(L), 6, 6) # This differs from local linear estimator
-   B.inv = solve(B) # TODO: can this be sped up????
+   B.inv = solve(B)             # TODO: can this be sped up????
    U_del = switch(del + 1,
                   c(T, rep(F, 5)),
                   rep(c(T, F), each = 3),
@@ -42,8 +42,10 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
              c(1, by_h, by_h),
              c(1, by_h, by_h, by_h^2, by_h^2, by_h^2))
 
-  t(u * apply(x.design.grid, 1, function(z){
-    crossprod(B.inv[,U_del], U(z-x, h, m = m) * K((z-x)/h))}))
+  result = u * apply(x.design.grid, 1, function(z){
+    crossprod(B.inv[,U_del], U(z-x, h, m = m) * K((z-x)/h))})
+  if (del > 0) { return(t(result)) }
+  return(result)
 }
 
 
