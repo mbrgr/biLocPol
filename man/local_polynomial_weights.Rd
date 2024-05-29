@@ -14,6 +14,7 @@ local_polynomial_weights(
   x.design.grid = NULL,
   grid.type = "less",
   eval.type = "full",
+  parallel.environment = T,
   ...
 )
 }

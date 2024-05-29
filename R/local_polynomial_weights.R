@@ -30,6 +30,9 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
                   c(T, rep(F, 5)),
                   rep(c(T, F), each = 3),
                   rep(T, 6))
+ } else if (m == 0){
+   B.inv = matrix(1/sum(L), 1, 1)
+   U_del = 1
  } else { # m = 1
    B = matrix(rowSums(L), 3, 3)
    B.inv = invert3x3(B)
@@ -84,7 +87,7 @@ weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
 #' local_polynomial_weights(20, 0.3, 25, m = 2, del = 0)
 local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
                                     del = 0, x.design.grid = NULL,
-                                    grid.type = "less", eval.type = "full", ...){
+                                    grid.type = "less", eval.type = "full", parallel.environment = T, ...){
 
   if( !(grid.type %in% c("less", "without diagonal")) ){
     stop("grid type is not feasible - choose -less- oder -without diagonal-.")
@@ -104,14 +107,21 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
                        full = observation_grid(p = p.eval, comp = "lesseq"),
                        diagonal = matrix( (1:p.eval - 0.5)/p.eval, p.eval, 2)   )
 
-  if(del > m){m = 2; del = 2}
-  if(parallel){
-    cl = parallel::makeCluster(parallel::detectCores( ) - 1)
-    future::plan(future::cluster)
+  if (del > m) {
+    m = 2; del = 2
+    warning("del > m; calculations executed for del = m = 2.")
+  }
+  if (parallel) {
+    if (parallel.environment) {
+      cl = parallel::makeCluster(parallel::detectCores( ) - 1)
+      future::plan(future::cluster)
+    }
     w = future.apply::future_apply(x.eval.grid, 1, FUN = weights_point,
                      x.design.grid = x.design.grid, h = h, m = m, del = del, ...,
                      future.seed = T)
-    parallel::stopCluster(cl)
+    if(parallel.environment){
+      parallel::stopCluster(cl)
+    }
   }else{
     w = apply(x.eval.grid, 1, weights_point,
               x.design.grid = x.design.grid,
