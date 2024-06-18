@@ -1,7 +1,7 @@
 #### Leave One Plane Out Cross Validation #####
 
 #' lopocv
-#' @desctiption Leave One Plane Out Cross Validation.
+#' @description Leave One Plane Out Cross Validation.
 #' @param Y Raw observations without any transformation. Numerical with dimension n x p.
 #' @param h.seq Sequence of bandwidth to compare in cross validation. Numerical vector.
 #' @param m Degree of local polynomial estimation. 1 and 2 is possible.
@@ -60,10 +60,10 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, .
 #' @param h.parallel.environment Logical value that indicates if the 'makeCluster', 'plan' and 'stopCluster' functions shall be called
 #' @param ... Further arguments passend to 'local_polynomial_weights'.
 #'
-#' @return
+#' @return Bandwidth with minimal sup error in cross validation
 #' @export
 #'
-#' @examples
+#' @examples 0 # TODO:
 k_fold_cv = function(Y, h.seq, K = 2, m = 1, h.parallel = F, h.parallel.environment = F, ...){
 
   p = length(Y[1,])
