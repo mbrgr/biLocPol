@@ -15,7 +15,8 @@ eval_weights(W, Z)
 Matrix/Array with evaluation
 }
 \description{
-Evaluates the weights from local_polynomial_weights with data
+Evaluates weights for correctly transformed weights. If evaluation points of W
+are given via "without.diagonal" also the observations need to be transformed with "grid.type = without.diagonal".
 }
 \examples{
 0 # TODO
