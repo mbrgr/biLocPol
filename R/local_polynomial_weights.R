@@ -145,6 +145,9 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
 
 #' Evaluates the weights from local_polynomial_weights with data
 #'
+#' @description Evaluates weights for correctly transformed weights. If evaluation points of W
+#' are given via "without.diagonal" also the observations need to be transformed with "grid.type = without.diagonal".
+#'
 #' @param W weights object from local_polynomial_weights
 #' @param Z transformed data
 #'
@@ -168,7 +171,15 @@ eval_weights = function(W, Z){
     } else {
       if(W$grid.type != "without diagonal") {stop("grid type not implemented")}
       if(W$p*(W$p-1) != length(Z)) {stop("Z is not in correct representation")}
-      M = crossprod(W$weights, Z)
+      if (W$eval.type == "full") {
+        M = matrix(0, W$p.eval, W$p.eval)
+        M.up = upper.tri(M, T)
+        M[M.up] = crossprod(W$weights, Z)
+        M[!M.up] = t(M)[!M.up]
+      } else {
+        if(W$eval.type != "diagonal") {stop("eval.type needs to be diagonal or full")}
+        M = crossprod(W$weights, Z)
+      }
     }
     return(M)
   }else{
