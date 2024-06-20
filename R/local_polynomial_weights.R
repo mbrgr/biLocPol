@@ -24,7 +24,7 @@
 weights_point = function(x, x.design.grid, h, K = epak_2d, m = 1, del = 0){
  L = apply(x.design.grid, 1, function(z){tcrossprod(U(z - x, h, m = m), U(z-x, h, m = m)) * K((z-x)/h)})
  if (m == 2) {
-   B = matrix(rowSums(L), 6, 6) # This differs from local linear estimator
+   B = matrix(rowSums(L), 6, 6)
    B.inv = solve(B)             # TODO: can this be sped up????
    U_del = switch(del + 1,
                   c(T, rep(F, 5)),
@@ -157,7 +157,7 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
 #' @examples
 #' 0 # TODO
 eval_weights = function(W, Z){
-  if(W$del == 0){
+  if(W$del == 0){ # TODO: This is can be shortened
     if (W$grid.type == "less") {
       if (W$eval.type == "full") {
         M = matrix(0, W$p.eval, W$p.eval)

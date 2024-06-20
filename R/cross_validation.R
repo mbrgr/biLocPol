@@ -10,6 +10,9 @@
 #' @param ... Further arguments passend to 'local_polynomial_weights' such as 'parallel' and 'parallel.environment'
 #'
 #' @return Bandwidth with minimal sup error in cross validation
+#' @importFrom future.apply future_apply
+#' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom future plan
 #' @export
 #'
 #' @examples 0 # TODO:
@@ -61,6 +64,9 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, .
 #' @param ... Further arguments passend to 'local_polynomial_weights'.
 #'
 #' @return Bandwidth with minimal sup error in cross validation
+#' @importFrom future.apply future_apply
+#' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom future plan
 #' @export
 #'
 #' @examples 0 # TODO:
