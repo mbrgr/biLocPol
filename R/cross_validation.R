@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples 0 # TODO:
-lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, ...){
+lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, na.rm = F, ...){
   p = length(Y[1,])
   n = length(Y[,1])
   Y = apply(Y, 2, function(x){x - mean(x)})
@@ -26,9 +26,9 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, .
     max_diff = numeric(n)
     for(l in 1:n){
       Z_l         = tcrossprod(Y[l,], Y[l,])
-      Z_minus_l   = observation_transformation(Y[-l,])
+      Z_minus_l   = observation_transformation(Y[-l,], na.rm = na.rm)
       estimate    = eval_weights(w_h, Z_minus_l)
-      max_diff[l] = max( abs(Z_l - estimate)[!as.logical(diag(p))] )
+      max_diff[l] = max( abs(Z_l - estimate)[!as.logical(diag(p))][!is.na(Z_l)] )
     }
     mean(max_diff)
   }
@@ -70,7 +70,7 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, .
 #' @export
 #'
 #' @examples 0 # TODO:
-k_fold_cv = function(Y, h.seq, K = 2, m = 1, h.parallel = F, h.parallel.environment = F, ...){
+k_fold_cv = function(Y, h.seq, K = 2, m = 1, h.parallel = F, h.parallel.environment = F, na.rm = F,...){
 
   p = length(Y[1,])
   n = length(Y[,1])
@@ -81,8 +81,8 @@ k_fold_cv = function(Y, h.seq, K = 2, m = 1, h.parallel = F, h.parallel.environm
     w_h = local_polynomial_weights(p, h, p.eval = p, m = m, ...)
     max_diff = numeric(K)
     for(kk in 1:K){
-      test_grp     = matrix(observation_transformation(Y[grp == kk,], grid.type = "full"), p, p)
-      train_grp    = observation_transformation(Y[grp != kk,])
+      test_grp     = matrix(observation_transformation(Y[grp == kk,], grid.type = "full", na.rm = T), p, p)
+      train_grp    = observation_transformation(Y[grp != kk,], na.rm = na.rm)
       pred         = eval_weights(w_h, train_grp)
       max_diff[kk] = max(abs(test_grp - pred)[!as.logical(diag(p))])
     }
