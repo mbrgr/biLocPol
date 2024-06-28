@@ -131,7 +131,10 @@ observation_transformation = function(Y, grid.type = "less", na.rm = F){
   Y.means = colMeans(Y, na.rm = na.rm)          # pointwise mean
   Y.2 = apply(Y, 1, tcrossprod)                 # Dim (p^2 x n) (order of the col's are as.vector of the matrices)
   Z = Y.2 - as.vector(tcrossprod(Y.means))      # vector gets subtracted of all columns. Dim (p^2 x n)
-  Z.mean = rowSums(Z, na.rm = na.rm)/(n-1)      # Dim p^2. Reduction that is only possible in the case of synchronous observations.
+  Z.mean =  Z |>
+    apply(1, function(x){
+      sum(x, na.rm = na.rm)/(n - 1 - sum(is.na(x)))}
+      )                                         # Dim p^2. Reduction that is only possible in the case of synchronous observations.
   if (Z.mean |> is.na() |> any()) { warning("There are NA values in the empirical covariance") }
   if (grid.type == "less") {
     M2 = as.vector(upper.tri(matrix(0, p, p)))  # corresponds to entries of: observation.grid(p, "less)
