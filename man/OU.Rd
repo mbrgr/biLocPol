@@ -23,7 +23,7 @@ OU(n, t = seq(0, 1, len = 201), mu = 0, alpha = 1, sigma = 1, x0 = 0)
 TODO
 }
 \description{
-Uses the ... package !!
+Uses the [goffda] package.
 }
 \examples{
 0 # TODO

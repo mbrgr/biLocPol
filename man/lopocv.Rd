@@ -4,7 +4,15 @@
 \alias{lopocv}
 \title{lopocv}
 \usage{
-lopocv(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, ...)
+lopocv(
+  Y,
+  h.seq,
+  m = 2,
+  h.parallel = F,
+  h.parallel.environment = F,
+  na.rm = F,
+  ...
+)
 }
 \arguments{
 \item{Y}{Raw observations without any transformation. Numerical with dimension n x p.}

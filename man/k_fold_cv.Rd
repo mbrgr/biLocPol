@@ -11,6 +11,7 @@ k_fold_cv(
   m = 1,
   h.parallel = F,
   h.parallel.environment = F,
+  na.rm = F,
   ...
 )
 }
@@ -23,7 +24,7 @@ k_fold_cv(
 
 \item{m}{Degree of local polynomial estimation. 1 and 2 is possible.}
 
-\item{h.parallel}{Logical value wether the}
+\item{h.parallel}{Logical value whether the}
 
 \item{h.parallel.environment}{Logical value that indicates if the 'makeCluster', 'plan' and 'stopCluster' functions shall be called}
 
@@ -33,7 +34,9 @@ k_fold_cv(
 Bandwidth with minimal sup error in cross validation
 }
 \description{
-K-Fold Cross Validation
+K-Fold Cross Validation:
+* eins
+* zwei
 }
 \examples{
 0 # TODO:

@@ -89,12 +89,12 @@ BM = function(n, t, sigma = 1){
 #'
 #' @examples
 #' 0 # TODO
-cov.ou = function(t, sigma, theta, sigma0 = 0){
+cov_ou = function(t, sigma, theta, sigma0 = 0){
   sigma^2/(2*theta) * (exp(-theta*abs(t[1]-t[2])) - exp(-theta*(t[1]+t[2]))) + sigma0^2*exp(-theta*(t[1]+t[2]))
 }
 
 #' Ornstein Uhlenbeck Process
-#' @description Uses the ... package !!
+#' @description Uses the [goffda] package.
 #'
 #' @param n how many processes
 #' @param t points of evaluation
@@ -112,6 +112,53 @@ cov.ou = function(t, sigma, theta, sigma0 = 0){
 OU = function(n, t = seq(0, 1, len = 201), mu = 0, alpha = 1, sigma = 1, x0 = 0){
   goffda::r_ou(n, t, mu, alpha, sigma, x0)$data
 }
+
+
+
+#' z_2rv
+#'
+#' @param n Amount of observated curves in FDA setting
+#' @param p Amount of Design points in FDA setting.
+#' @param t Vector for design points if the design shall differ from the equidistant design. If not provided equidistant setting is used.
+#' @param a Parameter
+#' @param b Parameter
+#' @param c Parameter
+#'
+#' @return Matrix of dimension n x p.
+#' @export
+#'
+#' @examples z_2rv(n = 10)
+z_2rv = function(n = 1, p = 100, t = NULL,
+                 a = 2/3, b = sqrt(2)*2/3, c = 1.25){
+  if( is.null(t) ) {
+    t = (1:p - 1/2)/p
+  }
+  N = matrix(rnorm(2*n, 0, 1), n, 2)
+  apply(N, 1, function(m){
+    a * m[1] * sin(pi * t) +
+      b * m[2] * cos(c*pi*t)
+  }) |> t()
+}
+
+
+#' cov_z_2rv
+#'
+#' @param t Two dimensional evaluation vector of covariance kernel
+#' @param a Parameter
+#' @param b Parameter
+#' @param c Parameter
+#'
+#' @return Single value of covariance kernel
+#' @export
+#'
+#' @examples cov_z_2rv(c(0.4, 0.3))
+cov_z_2rv = function(t, a = 2/3, b = sqrt(2)*2/3, c = 1.25){
+  a^2*sin(pi*t[1])*sin(pi*t[2]) +
+    b^2*cos(c*pi*t[1])*cos(c*pi*t[2])
+}
+
+
+
 
 
 #' Generates values to test functions

@@ -53,13 +53,15 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, n
 #### K-Fold Cross Validation #####
 
 #' k_fold_c
-#' @description K-Fold Cross Validation
+#' @description K-Fold Cross Validation:
+#' * eins
+#' * zwei
 #'
 #' @param Y Raw observations without any transformation. Numerical with dimension n x p.
 #' @param h.seq Sequence of bandwidth to compare in cross validation. Numerical vector.
 #' @param K Into how many subset shall the data be devided?
 #' @param m Degree of local polynomial estimation. 1 and 2 is possible.
-#' @param h.parallel Logical value wether the
+#' @param h.parallel Logical value whether the
 #' @param h.parallel.environment Logical value that indicates if the 'makeCluster', 'plan' and 'stopCluster' functions shall be called
 #' @param ... Further arguments passend to 'local_polynomial_weights'.
 #'

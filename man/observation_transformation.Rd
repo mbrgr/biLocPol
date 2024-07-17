@@ -4,7 +4,7 @@
 \alias{observation_transformation}
 \title{Transforms observations according to Berger/Holzmann (2024)}
 \usage{
-observation_transformation(Y, grid.type = "less")
+observation_transformation(Y, grid.type = "less", na.rm = F)
 }
 \arguments{
 \item{Y}{Observations in Form of a n x p matrix}
