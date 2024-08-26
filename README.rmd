@@ -17,6 +17,8 @@ devtools::install_github("mbrgr/biLocPol")
 # library(biLocPol)
 ```
 
+The examples in the previous mentiones paper can be found in the seperate GitHub project [Optimal-Rates-Covariance-Estimation-in-FDA](https://github.com/mbrgr/Optimal-Rates-Covariance-Kernel-Estimation-in-FDA).
+
 ## Structure 
 
 The folder "R" contains the .r files. The script "computational_functions.r" features basic functions for data transformations, calculations and functions special to the method. The file "local_polynomial_weights.r" contains the heart of the package. The function "weight_point" is only a helper function for the main function "local_polynomial_weights.r" which calculates the weights of the local polynomial estimator (and its derivatives if demanded). The evaluation of the estimator is the done by plugging the weights and the transformed data into the "weights_eval" function. The "cross_validation.r" file features functions for K-fold and leave one plane out cross validation. 

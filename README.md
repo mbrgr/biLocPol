@@ -17,6 +17,10 @@ devtools::install_github("mbrgr/biLocPol")
 # library(biLocPol)
 ```
 
+The examples in the previous mentiones paper can be found in the
+seperate GitHub project
+[Optimal-Rates-Covariance-Estimation-in-FDA](https://github.com/mbrgr/Optimal-Rates-Covariance-Kernel-Estimation-in-FDA).
+
 ## Structure
 
 The folder “R” contains the .r files. The script
