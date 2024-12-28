@@ -185,12 +185,21 @@ eval_weights = function(W, Z){
   }else{
     if(W$eval.type == "full"){
       if(W$grid.type == "less"){
-        weights_eval = apply(W$weights, 3, function(w){M = matrix(0, W$p.eval, W$p.eval)
-        M.up = upper.tri(M, T)
-        M[M.up] = crossprod(w, Z)
-        M[!M.up] = t(M)[!M.up]
-        M})
+        weights_eval = apply(W$weights, 3, function(w){
+          M = matrix(0, W$p.eval, W$p.eval)
+          up = upper.tri(M, T)
+          M[up] = crossprod(w, Z)
+          M[!up] = t(M)[!up]
+          M}
+        )
         weights_eval = array(weights_eval, dim = c(W$p.eval, W$p.eval, switch(W$del, 3, 6)))
+        # at the moment not working, only for first partial derivatives
+        if(W$del == 1){
+          up = upper.tri(matrix(0, W$p.eval, W$p.eval), F)
+          lw = lower.tri(matrix(0, W$p.eval, W$p.eval), F)
+          weights_eval[,,2][lw] = rev(weights_eval[,,3][up])
+          weights_eval[,,3][lw] = rev(weights_eval[,,2][up])
+        }
       }else if(W$grid.type == "without diagonal"){
         weights_eval = apply(W$weights, 3, function(w){crossprod(w, Z)}) |>
           array(dim = c(W$p.eval, W$p.eval, switch(W$del, 3, 6)))
