@@ -197,8 +197,20 @@ eval_weights = function(W, Z){
         if(W$del == 1){
           up = upper.tri(matrix(0, W$p.eval, W$p.eval), F)
           lw = lower.tri(matrix(0, W$p.eval, W$p.eval), F)
-          weights_eval[,,2][lw] = rev(weights_eval[,,3][up])
-          weights_eval[,,3][lw] = rev(weights_eval[,,2][up])
+          tmp = weights_eval[,,2]
+          weights_eval[,,2][lw] = weights_eval[,,3][lw]
+          weights_eval[,,3][lw] = tmp[lw]
+        }
+        if(W$del == 2){
+          up = upper.tri(matrix(0, W$p.eval, W$p.eval), F)
+          lw = lower.tri(matrix(0, W$p.eval, W$p.eval), F)
+          tmp = weights_eval[,,2]
+          weights_eval[,,2][lw] = weights_eval[,,3][lw]
+          weights_eval[,,3][lw] = tmp[lw]
+          tmp = weights_eval[,,4]
+          weights_eval[,,4][lw] = weights_eval[,,6][lw]
+          weights_eval[,,5][lw] = t(weights_eval[,,5])[lw]
+          weights_eval[,,6][lw] = tmp[lw]
         }
       }else if(W$grid.type == "without diagonal"){
         weights_eval = apply(W$weights, 3, function(w){crossprod(w, Z)}) |>
