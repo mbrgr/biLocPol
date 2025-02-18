@@ -114,7 +114,7 @@ local_polynomial_weights = function(p, h, p.eval, parallel = F, m = 1,
   if (parallel) {
     if (parallel.environment) {
       cl = parallel::makeCluster(parallel::detectCores( ) - 1)
-      future::plan(future::cluster)
+      future::plan(future::multisession)
     }
     w = future.apply::future_apply(x.eval.grid, 1, FUN = weights_point,
                      x.design.grid = x.design.grid, h = h, m = m, del = del, ...,

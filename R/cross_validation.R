@@ -36,7 +36,7 @@ lopocv = function(Y, h.seq, m = 2, h.parallel = F, h.parallel.environment = F, n
   if (h.parallel) {
     if(h.parallel.environment){
       cl = parallel::makeCluster(parallel::detectCores( ) - 1)
-      future::plan(future::cluster)
+      future::plan(future::multisession)
     }
     mean_sup = future_sapply(h.seq, help, future.seed = T)
     if(h.parallel.environment){
